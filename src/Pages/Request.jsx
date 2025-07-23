@@ -37,12 +37,13 @@ const Request = () => {
   const fetchFoods = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:5000/api/food", {
+      const res = await axios.get("/food", {
         headers: { Authorization: token },
       });
       setFoods(res.data);
     } catch (err) {
       console.error("❌ Failed to fetch foods:", err);
+      setError("Something went wrong while fetching foods.");
     }
   };
 
@@ -65,11 +66,14 @@ const Request = () => {
     }
     try {
       setRequestingId(foodId);
-      await axios.put(`http://localhost:5000/api/food/request/${foodId}`, {
-        requesterId: user._id,
-        requesterName,
-        requesterPhone,
-      });
+      await axios.put(
+        `https://food-app-backend-16ip.onrender.com/api/food/request/${foodId}`,
+        {
+          requesterId: user._id,
+          requesterName,
+          requesterPhone,
+        }
+      );
       toast.success("✅ Request sent!");
       await fetchFoods();
     } catch (err) {
@@ -83,9 +87,7 @@ const Request = () => {
   const handlePickup = async (foodId) => {
     try {
       setPickingUpId(foodId);
-      const res = await axios.put(
-        `http://localhost:5000/api/food/pickup/${foodId}`
-      );
+      const res = await axios.put(`/food/pickup/${foodId}`);
       const updatedFood = res.data.food;
       setFoods((prev) =>
         prev.map((item) => (item._id === foodId ? updatedFood : item))
@@ -102,9 +104,7 @@ const Request = () => {
   const handleCancelRequest = async (foodId) => {
     try {
       setCancellingId(foodId);
-      const res = await axios.put(
-        `http://localhost:5000/api/food/cancel/${foodId}`
-      );
+      const res = await axios.put(`/food/cancel/${foodId}`);
       const updatedFood = res.data.food;
       setFoods((prev) =>
         prev.map((item) => (item._id === foodId ? updatedFood : item))
@@ -192,7 +192,7 @@ const Request = () => {
         </InfiniteScroll>
       )}
 
-      {/* ✅ Modal Dialog */}
+      {/* ✅ Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-xl shadow-lg w-[90%] max-w-md">

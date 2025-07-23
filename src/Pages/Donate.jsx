@@ -152,14 +152,13 @@ const DonatePage = () => {
 
   return (
     <div className="min-h-screen py-10 px-4 flex flex-col items-center">
-      <h1 className="text-4xl md:text-5xl font-bold text-center  font-heading mb-4">
+      <h1 className="text-4xl md:text-5xl font-bold text-center font-heading mb-4">
         Donate Surplus Food
       </h1>
       <p className="text-lg md:text-2xl font-medium text-gray-800 text-center mb-6">
         Fill in the details below to make your donation available to nearby volunteers.
       </p>
 
-      {/* Home button */}
       <button
         onClick={() => navigate("/")}
         className="mb-6 bg-gray-100 hover:bg-gray-200 border border-gray-400 text-gray-800 font-medium py-2 px-4 rounded-lg shadow"
@@ -187,7 +186,9 @@ const DonatePage = () => {
         </div>
 
         <div>
-          <label className="block text-lg font-semibold mb-1">Food Name <span className="text-red-500">*</span></label>
+          <label className="block text-lg font-semibold mb-1">
+            Food Name <span className="text-red-500">*</span>
+          </label>
           <input
             type="text"
             value={FoodName}
@@ -297,7 +298,6 @@ const DonatePage = () => {
         </button>
       </form>
 
-      {/* MODAL / DIALOG BOX */}
       {dialog.open && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-40">
           <div className="bg-white rounded-lg p-6 shadow-lg max-w-sm w-full text-center">

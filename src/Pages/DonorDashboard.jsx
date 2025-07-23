@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../api"; // ✅ Uses configured axios instance
 import { toast } from "react-toastify";
 
 const DonorDashboard = () => {
@@ -10,11 +10,9 @@ const DonorDashboard = () => {
   const [foodId, setFoodId] = useState(null);
 
   useEffect(() => {
-    // Just store edit data – don't set states here (they are not declared here)
     const editData = localStorage.getItem("editFood");
     if (editData) {
       console.log("Edit mode triggered, data stored in localStorage.");
-      // The Donate page will read and use this data
     }
   }, []);
 
@@ -30,18 +28,9 @@ const DonorDashboard = () => {
 
     const fetchDonations = async () => {
       try {
-        const token = localStorage.getItem("token");
         const donorId = user._id || user.id;
 
-        const res = await axios.get(
-          `http://localhost:5000/api/food/donations?donorId=${donorId}`,
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
-
+        const res = await api.get(`/food/donations?donorId=${donorId}`); // ✅ Updated
         setDonations(res.data);
       } catch (err) {
         toast.error("❌ Failed to load donations.");
@@ -56,10 +45,7 @@ const DonorDashboard = () => {
 
   const handleDelete = async (id) => {
     try {
-      const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:5000/api/food/${id}`, {
-        headers: { Authorization: token },
-      });
+      await api.delete(`/food/${id}`); // ✅ Updated
       toast.success("🗑️ Deleted successfully");
       setDonations(donations.filter((d) => d._id !== id));
     } catch (err) {
@@ -91,7 +77,7 @@ const DonorDashboard = () => {
               className="bg-white shadow-xl rounded-2xl w-[300px] overflow-hidden transition-transform hover:scale-105 duration-300"
             >
               <img
-                src={`http://localhost:5000/uploads/${food.image}`}
+                src={`https://food-app-backend-16ip.onrender.com/uploads/${food.image}`}
                 alt={food.foodName}
                 className="h-48 w-full object-cover"
               />
