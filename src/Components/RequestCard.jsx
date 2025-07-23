@@ -13,9 +13,12 @@ const RequestCard = ({
 }) => {
   const [cancelId, setCancelId] = useState(null);
 
-  const imageUrl = food.image?.startsWith("http")
-    ? food.image
-    : `https://food-app-backend-16ip.onrender.com/uploads/${food.image}`;
+  const imageUrl = food.image?.includes("localhost")
+  ? food.image.replace("http://localhost:5000", "https://food-app-backend-16ip.onrender.com")
+  : food.image?.startsWith("http")
+  ? food.image
+  : `https://food-app-backend-16ip.onrender.com/uploads/${food.image}`;
+
 
   const status = food.status?.toLowerCase();
 
