@@ -1,13 +1,13 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: "https://food-app-backend-16ip.onrender.com", // ⬅️ USE your actual Render URL here
 });
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token) {
-    config.headers.Authorization = `Bearer ${token}`; // ✅ IMPORTANT
+    config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });
