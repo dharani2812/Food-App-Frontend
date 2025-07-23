@@ -4,6 +4,7 @@ import RequestCard from "../Components/RequestCard";
 import { toast } from "react-toastify";
 import InfiniteScroll from "react-infinite-scroll-component";
 import AOS from "aos";
+import api from "../api"; // ✅ Make sure the path is correct
 import "aos/dist/aos.css";
 
 const Request = () => {
@@ -37,7 +38,7 @@ const Request = () => {
   const fetchFoods = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("/food", {
+      const res = await api.get("/food", {
         headers: { Authorization: token },
       });
       setFoods(res.data);
@@ -66,7 +67,7 @@ const Request = () => {
     }
     try {
       setRequestingId(foodId);
-      await axios.put(
+      await api.put(
         `https://food-app-backend-16ip.onrender.com/api/food/request/${foodId}`,
         {
           requesterId: user._id,
@@ -84,22 +85,23 @@ const Request = () => {
     }
   };
 
-  const handlePickup = async (foodId) => {
-    try {
-      setPickingUpId(foodId);
-      const res = await axios.put(`/food/pickup/${foodId}`);
-      const updatedFood = res.data.food;
-      setFoods((prev) =>
-        prev.map((item) => (item._id === foodId ? updatedFood : item))
-      );
-      toast.success("✅ Marked as picked up");
-    } catch (err) {
-      console.error("❌ Pickup failed", err);
-      toast.error("❌ Something went wrong");
-    } finally {
-      setPickingUpId(null);
-    }
-  };
+const handlePickup = async (foodId) => {
+  try {
+    setPickingUpId(foodId);
+    const res = await api.put(`/food/pickup/${foodId}`);
+    const updatedFood = res.data.food;
+    setFoods((prev) =>
+      prev.map((item) => (item._id === foodId ? updatedFood : item))
+    );
+    toast.success("✅ Marked as picked up");
+  } catch (err) {
+    console.error("❌ Pickup failed", err);
+    toast.error("❌ Something went wrong");
+  } finally {
+    setPickingUpId(null);
+  }
+};
+
 
   const handleCancelRequest = async (foodId) => {
     try {
