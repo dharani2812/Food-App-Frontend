@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://food-app-backend-16ip.onrender.com", // ⬅️ USE your actual Render URL here
+  baseURL: "https://food-app-backend-16ip.onrender.com/api", // ⬅️ USE your actual Render URL here
 });
 
 api.interceptors.request.use((config) => {
