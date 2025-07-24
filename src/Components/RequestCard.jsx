@@ -34,7 +34,10 @@ const RequestCard = ({
       <h2 className="text-lg font-semibold mb-1">{food.foodName}</h2>
       <p>🍽️ Quantity: {food.quantity}</p>
       <p>📅 Expiry: {new Date(food.expiry).toLocaleDateString()}</p>
-      <p>📍 Address: {food.address.street}, {food.address.city} - {food.address.pincode}</p>
+      <p>
+        📍 Address: {food.address.street}, {food.address.city} -{" "}
+        {food.address.pincode}
+      </p>
       <p className="text-gray-600 mt-2">{food.description}</p>
 
       <p className="mt-2">
@@ -64,7 +67,8 @@ const RequestCard = ({
         </p>
       )}
 
-      {status === "available" && (
+      {(status === "available" ||
+        (status === "requested" && food.requesterId === userId)) && (
         <button
           onClick={() => handleRequest(food._id)}
           disabled={requestingId === food._id}
@@ -74,7 +78,11 @@ const RequestCard = ({
               : "bg-green-600 hover:bg-green-700"
           } text-white px-4 py-2 rounded`}
         >
-          {requestingId === food._id ? "Requesting..." : "Request Pickup"}
+          {requestingId === food._id
+            ? "Requesting..."
+            : status === "requested"
+            ? "Reconfirm Request"
+            : "Request Pickup"}
         </button>
       )}
 
