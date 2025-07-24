@@ -234,11 +234,11 @@ const Home = () => {
             <div className="flex flex-col gap-2">
               <Link to="/about" className="text-sm hover:text-indigo-600 transition duration-150">About Us</Link>
               <Link to="/contact" className="text-sm hover:text-indigo-600 transition duration-150">Contact</Link>
-              <a href="#" className="text-sm hover:text-indigo-600 transition duration-150">Privacy Policy</a>
+              
             </div>
             <div>
               <p className="text-sm text-gray-500">
-                © {new Date().getFullYear()} Dharanidharan.tech — All rights reserved.
+                © {new Date().getFullYear()} dharanidharan.tech — All rights reserved.
               </p>
             </div>
           </div>
