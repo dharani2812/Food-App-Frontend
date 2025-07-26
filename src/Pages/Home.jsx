@@ -38,7 +38,7 @@ const Home = () => {
         {/* NAVBAR */}
         <div className="flex justify-between items-center px-4 py-4 bg-white shadow-md rounded-md relative">
           <h1 className="text-lg sm:text-xl md:text-2xl font-heading text-gray-800">
-            Waste Food Redistribution
+            Excess Food Redistribution
           </h1>
 
           {/* Desktop Navigation */}
@@ -225,7 +225,7 @@ const Home = () => {
           <div className="max-w-[1200px] mx-auto flex flex-col sm:flex-row justify-between items-center gap-6 text-center sm:text-left">
             <div>
               <h2 className="text-xl font-heading font-semibold">
-                Waste Food Redistribution Platform
+                Excess Food Redistribution Platform
               </h2>
               <p className="text-sm mt-2 text-gray-500">
                 Bridging Hunger with Hope. Together, let’s end food waste.
